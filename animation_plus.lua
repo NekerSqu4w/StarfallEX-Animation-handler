@@ -1,3 +1,5 @@
+//A StarfallEx lib made by AstalNeker !
+
 local current_animation_metadata = {}
 function set_animation(anim,obj)
     current_animation_metadata = {}
