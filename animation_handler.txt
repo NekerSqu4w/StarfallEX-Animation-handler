@@ -1,9 +1,9 @@
 --@name Animation handler
 --@author AstalNeker
---@include lib/animation_plus.txt
+--@include animation_plus.lua
 
 if CLIENT then
-    local animation_plus = require("lib/animation_plus.txt")
+    local animation_plus = require("animation_plus.lua")
 
     //Setup the animation
     local animation = {
