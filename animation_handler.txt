@@ -6,8 +6,8 @@
 --@include animation_plus/animation_example2.txt
 
 if CLIENT then
-    local animation_plus = require("animation_plus.txt")
-    local animation = require("animation_example2.txt")
+    local animation_plus = require("animation_plus/animation_plus.txt")
+    local animation = require("animation_plus/animation_example2.txt")
 
     //Set the new animation
     animation_plus.set_animation(animation.animation,animation.objects_type)
