@@ -1,9 +1,9 @@
 --@name Animation handler
 --@author AstalNeker
---@include animation_plus.txt
+--@include animation_plus/animation_plus.txt
 
---@include animation_example1.txt
---@include animation_example2.txt
+--@include animation_plus/animation_example1.txt
+--@include animation_plus/animation_example2.txt
 
 if CLIENT then
     local animation_plus = require("animation_plus.txt")
