@@ -1,20 +1,32 @@
 --@name Animation handler
 --@author AstalNeker
---@include animation_plus.lua
+--@include animation_plus.txt
 
 if CLIENT then
-    local animation_plus = require("animation_plus.lua")
+    local animation_plus = require("animation_plus.txt")
 
     //Setup the animation
     local animation = {
         {
             speed=0.01,
             type="rect",
-            calculate_ratio=function(real_ratio,direct_ratio,speed) return math.easeInOutBack(real_ratio) end,
+            calculate_ratio=function(real_ratio,direct_ratio,speed) return math.easeInSine(real_ratio) end,
             animation={
                 {x=0,y=0,width=50,height=50,r=120,g=120,b=120,a=255},
                 {x=0,y=0,width=150,height=50,r=120,g=120,b=120,a=255},
                 {x=0,y=0,width=150,height=150,r=120,g=255,b=120,a=255},
+                {x=0,y=0,width=50,height=50,r=120,g=120,b=120,a=255},
+            }
+        },
+        {
+            speed=0.01,
+            type="rect",
+            calculate_ratio=function(real_ratio,direct_ratio,speed) return math.easeInSine(real_ratio) end,
+            animation={
+                {x=50,y=0,width=50,height=50,r=255,g=255,b=255,a=255},
+                {x=150,y=0,width=150,height=50,r=255,g=255,b=255,a=255},
+                {x=150,y=0,width=256,height=50,r=255,g=255,b=255,a=255},
+                {x=50,y=0,width=50,height=50,r=255,g=255,b=255,a=255},
             }
         },
         {
@@ -22,9 +34,10 @@ if CLIENT then
             type="rect",
             calculate_ratio=function(real_ratio,direct_ratio,speed) return math.easeInOutBack(real_ratio) end,
             animation={
-                {x=50,y=0,width=50,height=50,r=255,g=255,b=255,a=255},
-                {x=150,y=0,width=150,height=50,r=255,g=255,b=255,a=255},
-                {x=150,y=0,width=256,height=50,r=255,g=255,b=255,a=255},
+                {x=0,y=150,width=20,height=50,r=120,g=120,b=255,a=255},
+                {x=0,y=150,width=256,height=50,r=120,g=120,b=255,a=255},
+                {x=0,y=150,width=150,height=50,r=255,g=120,b=120,a=255},
+                {x=0,y=150,width=75,height=50,r=120,g=120,b=255,a=255},
             }
         },
         {
@@ -32,7 +45,7 @@ if CLIENT then
             type="rect",
             calculate_ratio=function(real_ratio,direct_ratio,speed) return math.easeOutElastic(real_ratio) end,
             animation={
-                {x=512 - 100,y=512 - 100,width=100,height=100,r=200,g=200,b=200,a=255},
+                {x=512 - 160,y=512 - 160,width=160,height=160,r=200,g=200,b=200,a=255},
                 {x=512 - 240,y=512 - 240,width=240,height=240,r=200,g=200,b=200,a=255},
             }
         },
@@ -41,8 +54,17 @@ if CLIENT then
             type="circle",
             calculate_ratio=function(real_ratio,direct_ratio,speed) return math.easeOutElastic(real_ratio) end,
             animation={
-                {x=512-50,y=512-50,radius=50,r=150,g=150,b=255,a=255},
+                {x=512-80,y=512-80,radius=80,r=150,g=150,b=255,a=255},
                 {x=512-120,y=512-120,radius=120,r=255,g=150,b=150,a=255},
+            }
+        },
+        {
+            speed=0.008,
+            type="circle",
+            calculate_ratio=function(real_ratio,direct_ratio,speed) return math.easeOutElastic(real_ratio) end,
+            animation={
+                {x=512-80,y=512-80,radius=70,r=150,g=150,b=255,a=255},
+                {x=512-120,y=512-120,radius=110,r=150,g=255,b=150,a=255},
             }
         }
     }
