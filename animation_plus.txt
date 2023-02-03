@@ -1,0 +1,54 @@
+local current_animation_metadata = {}
+function set_animation(anim,obj)
+    current_animation_metadata = {}
+    current_animation_metadata.objects_type = obj
+    current_animation_metadata.real_ratio = {}
+    current_animation_metadata.direct_ratio = {}
+    current_animation_metadata.id = {}
+    current_animation_metadata.id2 = {}
+    for i=1, #anim do
+        current_animation_metadata.id[i] = 1
+        current_animation_metadata.id2[i] = 2
+        current_animation_metadata.real_ratio[i] = 0
+        current_animation_metadata.direct_ratio[i] = 0
+    end
+    current_animation_metadata.animation = anim
+end
+    
+function update_animation()
+    local final = {}
+    for i=1, #current_animation_metadata.animation do
+        if #current_animation_metadata.animation[i].animation < 2 then return end
+        final[i] = {}
+        current_animation_metadata.real_ratio[i] = current_animation_metadata.real_ratio[i]+current_animation_metadata.animation[i].speed
+        current_animation_metadata.real_ratio[i] = math.clamp(current_animation_metadata.real_ratio[i],0,1)
+        current_animation_metadata.direct_ratio[i] = current_animation_metadata.animation[i].calculate_ratio(current_animation_metadata.real_ratio[i],current_animation_metadata.direct_ratio[i],current_animation_metadata.animation[i].speed)
+
+        for _, key in pairs(current_animation_metadata.animation[i].animation[current_animation_metadata.id[i]]) do
+            local valueA = current_animation_metadata.animation[i].animation[current_animation_metadata.id[i]][_]
+            local valueB = current_animation_metadata.animation[i].animation[current_animation_metadata.id2[i]][_]
+
+            final[i][_] = valueA
+            if type(valueA) == "number" and type(valueB) == "number" then
+                final[i][_] = valueA + current_animation_metadata.direct_ratio[i] * (valueB - valueA)
+            end
+
+            if _ == "r" || _ == "g" || _ == "b" || _ == "a" then
+                final[i][_] = math.clamp(valueA + current_animation_metadata.direct_ratio[i] * (valueB - valueA),0,255)
+            end
+        end
+
+        if current_animation_metadata.real_ratio[i] >= 0.999 then
+            current_animation_metadata.id[i] = current_animation_metadata.id[i] % #current_animation_metadata.animation[i].animation + 1
+            current_animation_metadata.id2[i] = current_animation_metadata.id2[i] % #current_animation_metadata.animation[i].animation + 1
+            current_animation_metadata.real_ratio[i] = 0
+            current_animation_metadata.direct_ratio[i] = 0
+        end
+
+        for _, obj in pairs(current_animation_metadata.objects_type) do
+            if _ == current_animation_metadata.animation[i].type then obj.func(final[i],current_animation_metadata.real_ratio[i],current_animation_metadata.direct_ratio[i]) end
+        end
+    end
+end
+
+return {update_animation=update_animation,set_animation=set_animation}
